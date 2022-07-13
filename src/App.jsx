@@ -119,7 +119,7 @@ function App() {
           <div className="image-container">
             <IconButton
               onClick={() => changeBottle()}
-              style={{ transform: "translateX(-200px)" }}
+              style={{ transform: "translateX(-20vw)" }}
               size="large"
             >
               <ReplayIcon fontSize="large"></ReplayIcon>
