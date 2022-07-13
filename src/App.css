@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+* {
+  box-sizing: border-box;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #CDDEA9, #A7C464);
+  background-size: 400% 400%;
+  overflow: hidden;
+  background-position: 0% 50%;
+  transition: all .8s ease-in-out;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.fraise {
+  background-position: 100% 50%;
+}
+
+.pm {
+  background-position: 0% 50%;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.select-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px
+}
+
+.select-box {
+  padding: 0 20px 20px 20px;
+  border: 1px solid white;
+  border-radius: 10px;
+  mix-blend-mode: overlay;
+  max-width: 400px;
+}
+
+.button-select {
+  display: flex;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blend {
+  mix-blend-mode: multiply;
+}
+
+.blend.fraise {
+  filter: drop-shadow(0 0 20px crimson);
+}
+
+.blend.pm {
+  filter: drop-shadow(0 0 20px #9aa77f);
+}
+
+button {
+  margin-right: 20px !important;
+  color: white !important;
+  border-color: white !important; 
+}
+
+button * {
+  color: black !important;
+}
+
+.MuiButton-containedPrimary {
+  background: white !important;
+  color: black !important;
+}
+
+.image {
+  position: absolute;
+  left: 35%;
+  transform: translate(120vw, -50%) rotate(30deg);
+  top: 42%;
+  height: 150vh;
+  transition: all .8s ease-in-out;
+}
+
+.image.active {
+  transform: translate(50%, -50%) rotate(15deg);
 }
