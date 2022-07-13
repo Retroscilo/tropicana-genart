@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable */
 import "./App.css";
 import { useState } from "react";
 import { Button } from "@mui/material";
