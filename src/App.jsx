@@ -1,14 +1,14 @@
 /* eslint-disable */
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Button } from "@mui/material";
-import pomd from "./assets/images/pomd.png";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import { orange } from "@mui/material/colors";
-import fraised from "./assets/images/fraised.png";
-import pomr from "./assets/images/pomr.png";
-import fraiser from "./assets/images/fraiser.png";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import ReplayIcon from "@mui/icons-material/Replay";
+import IconButton from "@mui/material/IconButton";
+
+import * as images from "./assets/images";
 
 const theme = createTheme({
   status: {
@@ -19,9 +19,19 @@ const theme = createTheme({
 function App() {
   const [selectedFruit, setSelectedFruit] = useState("pm");
   const [selectedWord, setSelectedWord] = useState("d");
+  const [url, setUrl] = useState(images.pmd1);
+  const [count, setCount] = useState(1);
+  function handleCount() {
+    let newCount = count + 1;
+    setCount((newCount % 3) + 1);
+  }
+  const img = useRef(null);
+  const blend = useRef(null);
+
   function setBackground(fruit) {
     document.querySelector("body").className = fruit;
   }
+
   function setShadow(fruit) {
     document.querySelectorAll(".blend").forEach((el) => {
       el.classList.remove("fraise");
@@ -30,26 +40,28 @@ function App() {
     });
   }
 
-  function changeBottle(fruit) {
-    document
-      .querySelectorAll(".active")
-      .forEach((el) => el.classList.remove("active"));
-
-    document
-      .querySelectorAll(`.${fruit}`)
-      .forEach((el) => el.classList.add("active"));
+  function changeBottle(fruit = selectedFruit, word = selectedWord) {
+    handleCount();
+    [img.current, blend.current].forEach((el) => el.classList.remove("active"));
+    setTimeout(() => {
+      setUrl(images[`${fruit}${word}${count}`]);
+      console.log(fruit);
+      img.current.src = url;
+      blend.current.src = url;
+      [img.current, blend.current].forEach((el) => el.classList.add("active"));
+    }, 700);
   }
 
   const handleSelectedFruit = (fruit) => {
     setSelectedFruit(fruit);
     setBackground(fruit);
     setShadow(fruit);
-    changeBottle(`${fruit}${selectedWord}`);
+    changeBottle(fruit, selectedWord);
   };
 
   function handleSelectWord(word) {
     setSelectedWord(word);
-    changeBottle(`${selectedFruit}${word}`);
+    changeBottle(selectedFruit, word);
   }
 
   return (
@@ -105,26 +117,20 @@ function App() {
             </Button>
           </div>
           <div className="image-container">
+            <IconButton
+              onClick={() => changeBottle()}
+              style={{ transform: "translateX(-200px)" }}
+              size="large"
+            >
+              <ReplayIcon fontSize="large"></ReplayIcon>
+            </IconButton>
             <img
               className="pmd image active"
               style={{ opacity: 0.5 }}
-              src={pomd}
+              src={url}
+              ref={img}
             />
-            <img className="pmd image blend active" src={pomd} />
-            <img
-              className="fraised image"
-              style={{ opacity: 0.5 }}
-              src={fraised}
-            />
-            <img className="fraised image blend" src={fraised} />
-            <img
-              className="fraiser image"
-              style={{ opacity: 0.5 }}
-              src={fraiser}
-            />
-            <img className="fraiser image blend" src={fraiser} />
-            <img className="pmr image" style={{ opacity: 0.5 }} src={pomr} />
-            <img className="pmr image blend" src={pomr} />
+            <img ref={blend} className="pmd image blend active" src={url} />
           </div>
         </div>
       </ThemeProvider>
